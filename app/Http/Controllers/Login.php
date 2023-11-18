@@ -34,4 +34,9 @@ class Login extends Controller
             return "Gagal Login: ". $e->getMessage();
         }
     }
+
+    function logout(){
+        Auth::logout();
+        return redirect()->route("login");
+    }
 }

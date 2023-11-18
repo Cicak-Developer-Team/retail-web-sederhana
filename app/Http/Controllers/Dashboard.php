@@ -8,6 +8,6 @@ use Illuminate\Support\Facades\Auth;
 class Dashboard extends Controller
 {
     function index(){
-        return "Welcome " . Auth::user()->name;
+        return view("dashboard.index");
     }
 }

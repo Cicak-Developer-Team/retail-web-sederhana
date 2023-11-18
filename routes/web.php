@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Category;
 use App\Http\Controllers\Dashboard;
+use App\Http\Controllers\History;
 use App\Http\Controllers\Login;
 use Illuminate\Support\Facades\Route;
 
@@ -20,14 +22,37 @@ Route::get('/', function () {
 });
 
 // public page
-Route::controller(Login::class)->middleware("guest")->group(function() {
-    Route::get("/login", "index")->name("login");
-    Route::post("/login", "auth")->name("auth");
+Route::controller(Login::class)->group(function() {
+    Route::middleware("guest")->group(function() {
+        Route::get("/login", "index")->name("login");
+        Route::post("/login", "auth")->name("auth");
+    });
+    Route::get("/logout", "logout")->name("logout");
 });
 
 // dashboard page
 Route::prefix("dashboard")->middleware("auth")->group(function() {
+
+    // dashboard
     Route::controller(Dashboard::class)->group(function(){
         Route::get("/", "index")->name("dashboard");
+    });
+
+    // category
+    Route::prefix("category")->group(function(){
+        Route::controller(Category::class)->group(function(){
+            Route::get("/", "index")->name("category_home");
+            Route::get("/remove/{id}", "remove")->name("remove_category");
+
+            Route::post("/", "add")->name("add_category");
+            Route::post("/update", "update")->name("update_category");
+        });
+    });
+
+    // History
+    Route::prefix("history")->group(function(){
+        Route::controller(History::class)->group(function(){
+            Route::get("/", "index")->name("history_home");
+        });
     });
 });
