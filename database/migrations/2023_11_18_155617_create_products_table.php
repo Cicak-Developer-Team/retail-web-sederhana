@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string("nama");
             $table->string("harga");
             $table->text("deskripsi");
-            $table->string("img_path");
+            $table->string("quantity");
             $table->timestamps();
         });
     }

@@ -8,7 +8,7 @@
             <div class="menu row py-2"  style="justify-content: space-evenly;">
                 <div class="col-md">
                     <a href="/dashboard" class="btn btn-light">Dashboard</a>
-                    <a href="/dashboard/category" disabled class="btn bg-primary">Category</a>
+                    <a href="/dashboard/category" disabled class="btn text-white bg-primary">Category</a>
                     <a href="/dashboard/history" class="btn btn-light">History</a>
                 </div>
                 <div class="col-md-2 text-end">

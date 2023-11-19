@@ -4,6 +4,7 @@ use App\Http\Controllers\Category;
 use App\Http\Controllers\Dashboard;
 use App\Http\Controllers\History;
 use App\Http\Controllers\Login;
+use App\Http\Controllers\Product;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,6 +37,14 @@ Route::prefix("dashboard")->middleware("auth")->group(function() {
     // dashboard
     Route::controller(Dashboard::class)->group(function(){
         Route::get("/", "index")->name("dashboard");
+
+        Route::prefix("/product")->group(function(){
+            Route::controller(Product::class)->group(function(){
+                Route::get("/remove/{id}", "remove")->name("remove_product");
+                Route::post("/add", "add")->name("add_product");
+                Route::post("/update", "update")->name("update_product");
+            });
+        });
     });
 
     // category
