@@ -1,6 +1,6 @@
 @extends('templates.template')
 
-@section('title', "Login Page")
+@section('title', "Category Page")
 @section('content')
 <div class="container">
     <div class="row">

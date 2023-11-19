@@ -1,6 +1,6 @@
 @extends('templates.template')
 
-@section('title', "Login Page")
+@section('title', "Dashboard Page")
 @section('content')
 <style>
     label {

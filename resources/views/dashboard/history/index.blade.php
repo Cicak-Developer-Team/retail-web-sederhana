@@ -1,6 +1,6 @@
 @extends('templates.template')
 
-@section('title', "Login Page")
+@section('title', "History Page")
 @section('content')
 <div class="container">
     <div class="row">
@@ -9,7 +9,7 @@
                 <div class="col-md">
                     <a href="/dashboard" class="btn btn-light">Dashboard</a>
                     <a href="/dashboard/category" class="btn btn-light">Category</a>
-                    <a href="/dashboard/history" class="btn btn-light">History</a>
+                    <a href="/dashboard/history" class="btn btn-primary text-white">History</a>
                 </div>
                 <div class="col-md-2 text-end">
                     <a href="/logout" class="btn btn-danger">
