@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Diskon;
 use App\Models\Product as ModelsProduct;
 use App\Services\HistoryService;
 use Exception;
@@ -13,11 +14,24 @@ class Product extends Controller
     function index()
     {
         $categories = Category::all();
-        $products = ModelsProduct::with("category")->get();
+        $products = ModelsProduct::with("category")->with("diskon")->get();
         return view("dashboard.product.index", [
             "categories" => $categories,
             "products" => $products
         ]);
+    }
+
+    function show($id)
+    {
+        $categories = Category::all();
+        $product = ModelsProduct::with("category")->with("diskon")->find($id);
+        return view("dashboard.product.detail", compact("product", "categories"));
+    }
+    function updateView($id)
+    {
+        $categories = Category::all();
+        $product = ModelsProduct::with("category")->find($id);
+        return view("dashboard.product.update", compact("product", "categories"));
     }
 
     function add(Request $request)
@@ -59,6 +73,27 @@ class Product extends Controller
             return back();
         } catch (Exception $e) {
             dump($e->getMessage());
+        }
+    }
+
+    function beli($id)
+    {
+        $product = ModelsProduct::find($id);
+        $product->quantity -= 1;
+        $product->save();
+        return redirect("dashboard/product/" . $id);
+    }
+
+    function addDiscount(Request $request)
+    {
+        try {
+            $discount_id = Diskon::create($request->except(["_token", "product_id"]))->id;
+            $product = ModelsProduct::find($request->product_id);
+            $product->diskon_id = $discount_id;
+            $product->save();
+            return redirect("dashboard/product/" . $request->product_id);
+        } catch (Exception $e) {
+            return back();
         }
     }
 }

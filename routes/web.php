@@ -43,9 +43,16 @@ Route::prefix("dashboard")->middleware("auth")->group(function () {
     Route::prefix("/product")->group(function () {
         Route::controller(Product::class)->group(function () {
             Route::get("/", "index");
+            Route::get("/{id}", "show")->name("show_product");
+            Route::get("/update/{id}", "updateView")->name("update_product_view");
+
             Route::get("/remove/{id}", "remove")->name("remove_product");
             Route::post("/add", "add")->name("add_product");
             Route::post("/update", "update")->name("update_product");
+
+            Route::get("/beli-product/{id}", "beli")->name("beli_product");
+
+            Route::post("/tambah-diskon", "addDiscount")->name("tambah_diskon");
         });
     });
 

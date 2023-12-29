@@ -16,7 +16,12 @@ class Product extends Model
         "deskripsi"
     ];
 
-    function category(){
-        return $this->hasOne(Category::class, "id");
+    function category()
+    {
+        return $this->hasOne(Category::class, "id", "category_id");
+    }
+    function diskon()
+    {
+        return $this->hasOne(Diskon::class, "id", "diskon_id");
     }
 }

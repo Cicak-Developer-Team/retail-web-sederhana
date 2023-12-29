@@ -14,57 +14,10 @@
         </div>
 
         <div class="col-md-12">
-            <div class="row">
-                {{-- sidebar --}}
-                <div class="col-md-3 rounded shadow me-3">
-                    {{-- ubah data --}}
-                    <form action="{{ route("update_product") }}" method="post">
-                        @csrf
-                        <h4>Ubah Prduk</h4>
-                        <div class="mb-3">
-                            <label class="form-label">Data ID</label>
-                            <select name="id" class="form-select">
-                                <option value="">---</option>
-                                @foreach( $products as $row )
-                                    <option value="{{ $row->id }}">{{$row->id . " - " . $row->nama}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Category ID</label>
-                            <select name="category_id" class="form-select">
-                                <option value="">---</option>
-                                @foreach( $categories as $row )
-                                    <option value="{{ $row->id }}">{{$row->id . " - " . $row->nama}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">nama</label>
-                            <input type="text" name="nama" class="form-control" placeholder="nama">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">quantity</label>
-                            <input type="number" name="quantity" class="form-control" placeholder="quantity">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">harga</label>
-                            <input type="text" name="harga" class="form-control" placeholder="harga">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">deskripsi</label>
-                            <textarea name="deskripsi" class="form-control"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <button class="btn btn-warning">
-                                SUBMIT
-                            </button>
-                        </div>
-                    </form>
-                </div>  
+            <div class="row justify-content-center">
 
-                <div class="col-md rounded shadow p-2">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahDataModal">
+                <div class="col-md-7 rounded shadow p-2">
+                    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#tambahDataModal">
                         Tambah Data
                     </button>                    
                     <div class="table-responsive">
@@ -75,7 +28,6 @@
                                 <th>QTY</th>
                                 <th>KATEGORI</th>
                                 <th>HARGA</th>
-                                <th>DESKRIPSI</th>
                                 <th></th>
                             </tr>
                             @foreach ($products as $item)
@@ -84,10 +36,22 @@
                                     <td>{{ $item->nama }}</td>
                                     <td>{{ $item->quantity }}</td>
                                     <td>{{ $item->category->nama }}</td>
-                                    <td>Rp. {{ number_format($item->harga, 0) }}</td>
-                                    <td>{{ $item->deskripsi }}</td>
                                     <td>
-                                        <a href="{{ route("remove_product", $item->id) }}" class="btn btn-sm btn-danger">Hapus</a>
+                                        @if ( $item->diskon !== null )
+                                            <div><del>Rp. {{ number_format($item->harga, 0) }}</del></div>
+                                            <div>Rp. {{ number_format(diskonCount($item->harga, $item->diskon->diskon), 0) }}</div>
+                                            @else
+                                                <div>Rp. {{ number_format($item->harga, 0) }}</div>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <a href="{{ route("update_product_view", $item->id) }}" class="btn btn-sm btn-success">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                        <a href="{{ route("show_product", $item->id) }}" class="dtailP-btn btn btn-sm btn-primary"><i class="bi bi-eye"></i></a>
+                                        <a href="{{ route("remove_product", $item->id) }}" class="btn btn-sm btn-danger">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -123,19 +87,19 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label">nama</label>
-                        <input type="text" name="nama" class="form-control" placeholder="nama">
+                        <input type="text" required name="nama" class="form-control" placeholder="nama">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">quantity</label>
-                        <input type="number" name="quantity" class="form-control" placeholder="quantity">
+                        <input type="number" required name="quantity" class="form-control" placeholder="quantity">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">harga</label>
-                        <input type="text" name="harga" class="form-control" placeholder="harga">
+                        <input type="text" required name="harga" class="form-control" placeholder="harga">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">deskripsi</label>
-                        <textarea name="deskripsi" class="form-control"></textarea>
+                        <textarea name="deskripsi" required class="form-control"></textarea>
                     </div>
                     <div class="mb-3">
                         <button class="btn btn-success">
@@ -147,5 +111,4 @@
         </div>
     </div>
 </div>
-
 @endSection
