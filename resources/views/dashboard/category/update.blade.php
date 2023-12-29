@@ -23,7 +23,7 @@
                         <div class="card-body">
                             <form action="{{ route('update_category') }}" method="post">
                                 @csrf
-                                <input type="text" name="id" value="{{ $data->id }}">
+                                <input type="text" hidden name="id" value="{{ $data->id }}">
                                 <div class="mb-3">
                                     <label class="form-label">Nama</label>
                                     <input type="text" class="form-control" value="{{ $data->nama }}" name="nama" placeholder="nama">
