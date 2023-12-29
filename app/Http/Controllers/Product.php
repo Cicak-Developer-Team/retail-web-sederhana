@@ -83,6 +83,7 @@ class Product extends Controller
     {
         $product = ModelsProduct::find($id);
         $product->quantity -= 1;
+        $product->buying_count += 1;
         $product->save();
         return redirect("dashboard/product/" . $id);
     }

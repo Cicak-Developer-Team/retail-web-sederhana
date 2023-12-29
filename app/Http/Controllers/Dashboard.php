@@ -12,7 +12,7 @@ class Dashboard extends Controller
     function index()
     {
         $categories = Category::all();
-        $products = Product::with("category")->get();
-        return view("dashboard.index");
+        $product = Product::with("category")->orderBy("buying_count", "DESC")->first();
+        return view("dashboard.index", compact("product"));
     }
 }

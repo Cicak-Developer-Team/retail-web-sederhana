@@ -39,7 +39,7 @@
                                         </div>
                                     @endif
                                     <div class="d-flex" style="gap: 12px;">
-                                        @if ( $product->diskon !== null || $expired)
+                                        @if ( $product->diskon !== null && !$expired )
                                             <h4 style="color: rgb(240, 65, 65)"><del>Rp {{ number_format($product->harga, 0) }}</del></h4>
                                             <h4>Rp {{ number_format(diskonCount($product->harga, $product->diskon->diskon), 0) }}</h4>
                                             @else
