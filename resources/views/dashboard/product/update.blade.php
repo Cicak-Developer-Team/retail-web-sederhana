@@ -28,7 +28,7 @@
                             {{-- ubah data --}}
                             <form action="{{ route("update_product") }}" method="post">
                                 @csrf
-                                <input type="text" name="id" value="{{ $product->id }}" hidden>
+                                <input type="text" name="id" hidden value="{{ $product->id }}" hidden>
                                 <div class="mb-3">
                                     <label class="form-label">Category ID</label>
                                     <select name="category_id" class="form-select">
