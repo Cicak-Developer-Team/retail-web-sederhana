@@ -4,19 +4,8 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-12 mb-3 bg-light rounded shadow">
-            <div class="menu row py-2"  style="justify-content: space-evenly;">
-                <div class="col-md">
-                    <a href="/dashboard" class="btn btn-light">Dashboard</a>
-                    <a href="/dashboard/category" disabled class="btn text-white bg-primary">Category</a>
-                    <a href="/dashboard/history" class="btn btn-light">History</a>
-                </div>
-                <div class="col-md-2 text-end">
-                    <a href="/logout" class="btn btn-danger">
-                        Logout
-                    </a>
-                </div>
-            </div>
+        <div class="col-md-12 mb-3 bg-light rounded shadow" style="justify-content: space-evenly;">
+            @include('components.navbar')
         </div>
         
         <!-- sidebar -->

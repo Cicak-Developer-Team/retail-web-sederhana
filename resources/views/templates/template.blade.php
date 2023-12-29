@@ -9,6 +9,9 @@
       .card {
         width: 100%;
       }
+      .menu a.btn {
+        text-transform: capitalize !important;
+      }
     </style>
   </head>
   <body>
