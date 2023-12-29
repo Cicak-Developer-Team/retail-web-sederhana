@@ -23,6 +23,9 @@
                                 <span>Kembali</span>
                             </a>
                             <h3>{{ $product->nama }}</h3>
+                            <span class="badge bg-warning">Produk kadaluarsa : {{ $product->expired_product }}</span>
+                            <span class="badge {{ ($expired_product)? 'bg-danger' : 'bg-success' }}">{{ ($expired_product)? "Produk Telah kadaluarsa atau sama dengan tanggal kadaluarsa." : "Produk Belum Kadaluarsa." }}</span>
+                            
                         </div>
                         <div class="card-body">
                             <div>
@@ -52,6 +55,7 @@
                             <div>
                                 <a href="{{ route("beli_product", $product->id) }}" class="btn btn-sm btn-info">
                                     <i class="bi bi-cash"></i>
+                                    <span>Checkout Produk</span>
                                 </a>
                                 <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#discountModal">
                                     <i class="bi bi-percent"></i>

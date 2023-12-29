@@ -28,7 +28,8 @@ class Product extends Controller
         $categories = Category::all();
         $product = ModelsProduct::with("category")->with("diskon")->find($id);
         $expired = $this->checkDiskon($product->id);
-        return view("dashboard.product.detail", compact("product", "categories", "expired"));
+        $expired_product = $this->checkExpired($product->id);
+        return view("dashboard.product.detail", compact("product", "categories", "expired", "expired_product"));
     }
     function updateView($id)
     {
@@ -71,6 +72,7 @@ class Product extends Controller
             $product->quantity = ($request->quantity !== null) ? $request->quantity : $product->quantity;
             $product->harga = ($request->harga !== null) ? $request->harga : $product->harga;
             $product->deskripsi = ($request->deskripsi !== null) ? $request->deskripsi : $product->deskripsi;
+            $product->expired_product = ($request->expired_product !== null) ? $request->expired_product : $product->expired_product;
             $product->save();
             HistoryService::add("Admin mengubah data produk");
             return back();
@@ -110,6 +112,18 @@ class Product extends Controller
         $date = Carbon::now();
         $nowDate = $date->year . "-" . $date->month . "-" . $date->day;
         $exDate = $product->diskon->expired;
+
+        $tanggal_sekarang_obj = new DateTime($nowDate);
+        $tanggal_kadaluarsa_obj = new DateTime($exDate);
+        return $tanggal_sekarang_obj >= $tanggal_kadaluarsa_obj;
+    }
+
+    private function checkExpired($id): Bool
+    {
+        $product = ModelsProduct::with("diskon")->find($id);
+        $date = Carbon::now();
+        $nowDate = $date->year . "-" . $date->month . "-" . $date->day;
+        $exDate = $product->expired_product;
 
         $tanggal_sekarang_obj = new DateTime($nowDate);
         $tanggal_kadaluarsa_obj = new DateTime($exDate);

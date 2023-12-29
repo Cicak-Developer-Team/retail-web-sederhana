@@ -98,6 +98,10 @@
                         <input type="text" required name="harga" class="form-control" placeholder="harga">
                     </div>
                     <div class="mb-3">
+                        <label class="form-label">Expired Product</label>
+                        <input type="date" name="expired_product" class="form-control" placeholder="quantity">
+                    </div>
+                    <div class="mb-3">
                         <label class="form-label">deskripsi</label>
                         <textarea name="deskripsi" required class="form-control"></textarea>
                     </div>

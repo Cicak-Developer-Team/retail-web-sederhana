@@ -47,6 +47,13 @@
                                     <input type="number" name="quantity" value="{{ $product->quantity }}" class="form-control" placeholder="quantity">
                                 </div>
                                 <div class="mb-3">
+                                    <label class="form-label">Expired Product</label>
+                                    <input type="date" name="expired_product" value="{{ $product->expired_product }}" class="form-control" placeholder="quantity">
+                                    <div>
+                                        <small>Nilai Sekarang : {{ $product->expired_product }}</small>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
                                     <label class="form-label">harga</label>
                                     <input type="text" name="harga" value="{{ $product->harga }}" class="form-control" placeholder="harga">
                                 </div>

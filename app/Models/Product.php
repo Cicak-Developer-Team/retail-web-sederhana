@@ -13,7 +13,8 @@ class Product extends Model
         "nama",
         "quantity",
         "harga",
-        "deskripsi"
+        "deskripsi",
+        "expired_product"
     ];
 
     function category()
