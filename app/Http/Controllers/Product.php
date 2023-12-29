@@ -22,6 +22,9 @@ class Product extends Controller
 
     function add(Request $request)
     {
+        if (!isset($request->category_id)) {
+            return back()->with("danger", "Category Tidak boleh kosong !");
+        }
         try {
             ModelsProduct::create($request->except("_token"));
             HistoryService::add("Admin menambah data produk");
