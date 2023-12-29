@@ -9,12 +9,10 @@ use Illuminate\Support\Facades\Auth;
 
 class Dashboard extends Controller
 {
-    function index(){
+    function index()
+    {
         $categories = Category::all();
         $products = Product::with("category")->get();
-        return view("dashboard.index",[
-            "categories" => $categories,
-            "products" => $products
-        ]);
+        return view("dashboard.index");
     }
 }
