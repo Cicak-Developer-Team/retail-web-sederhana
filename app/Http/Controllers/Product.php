@@ -6,6 +6,8 @@ use App\Models\Category;
 use App\Models\Diskon;
 use App\Models\Product as ModelsProduct;
 use App\Services\HistoryService;
+use Carbon\Carbon;
+use DateTime;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -25,7 +27,8 @@ class Product extends Controller
     {
         $categories = Category::all();
         $product = ModelsProduct::with("category")->with("diskon")->find($id);
-        return view("dashboard.product.detail", compact("product", "categories"));
+        $expired = $this->checkDiskon($product->id);
+        return view("dashboard.product.detail", compact("product", "categories", "expired"));
     }
     function updateView($id)
     {
@@ -95,5 +98,20 @@ class Product extends Controller
         } catch (Exception $e) {
             return back();
         }
+    }
+
+    private function checkDiskon($id): Bool
+    {
+        $product = ModelsProduct::with("diskon")->find($id);
+        if ($product->diskon == null) {
+            return false;
+        }
+        $date = Carbon::now();
+        $nowDate = $date->year . "-" . $date->month . "-" . $date->day;
+        $exDate = $product->diskon->expired;
+
+        $tanggal_sekarang_obj = new DateTime($nowDate);
+        $tanggal_kadaluarsa_obj = new DateTime($exDate);
+        return $tanggal_sekarang_obj >= $tanggal_kadaluarsa_obj;
     }
 }

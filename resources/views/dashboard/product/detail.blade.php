@@ -32,13 +32,20 @@
                                 Stok : {{ $product->quantity }}
                             </div>
                             <div class="mt-2">
-                                <div class="d-flex" style="gap: 12px;">
+                                <div>
                                     @if ( $product->diskon !== null )
-                                        <h4 style="color: rgb(240, 65, 65)"><del>Rp {{ number_format($product->harga, 0) }}</del></h4>
-                                        <h4>Rp {{ number_format(diskonCount($product->harga, $product->diskon->diskon), 0) }}</h4>
-                                        @else
-                                            <h4>Rp {{ number_format($product->harga, 0) }}</h4>
+                                        <div>
+                                            <span>Diskon <b>{{ $product->diskon->diskon }}%</b> : {{ ($expired)? "Telah kadaluarsa atau sama dengan tanggal kadaluarsa." : "Masih berlaku." }}</span>
+                                        </div>
                                     @endif
+                                    <div class="d-flex" style="gap: 12px;">
+                                        @if ( $product->diskon !== null || $expired)
+                                            <h4 style="color: rgb(240, 65, 65)"><del>Rp {{ number_format($product->harga, 0) }}</del></h4>
+                                            <h4>Rp {{ number_format(diskonCount($product->harga, $product->diskon->diskon), 0) }}</h4>
+                                            @else
+                                                <h4>Rp {{ number_format($product->harga, 0) }}</h4>
+                                        @endif
+                                    </div>
                                 </div>
                                 <p class="py-3">{{ $product->deskripsi }}</p>
                             </div>
