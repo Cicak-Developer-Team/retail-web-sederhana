@@ -61,6 +61,7 @@ Route::prefix("dashboard")->middleware("auth")->group(function () {
         Route::controller(Category::class)->group(function () {
             Route::get("/", "index")->name("category_home");
             Route::get("/remove/{id}", "remove")->name("remove_category");
+            Route::get("/update/{id}", "updateView")->name("update_category_view");
 
             Route::post("/", "add")->name("add_category");
             Route::post("/update", "update")->name("update_category");

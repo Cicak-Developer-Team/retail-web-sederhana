@@ -17,8 +17,9 @@
             <div class="row justify-content-center">
 
                 <div class="col-md-7 rounded shadow p-2">
-                    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#tambahDataModal">
-                        Tambah Data
+                    <button type="button" class="btn btn-primary mb-3 btn-sm" data-bs-toggle="modal" data-bs-target="#tambahDataModal">
+                        <i class="bi bi-plus"></i>
+                        <span>Tambah Data</span>
                     </button>                    
                     <div class="table-responsive">
                         <table class="table table-striped">
@@ -84,6 +85,7 @@
                                 <option value="{{ $row->id }}">{{$row->id . " - " . $row->nama}}</option>
                             @endforeach
                         </select>
+                        <span>Jika produk kosong: <a href="/dashboard/category">Tambah Kategori</a></span>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">nama</label>

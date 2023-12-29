@@ -10,48 +10,14 @@
         
         <!-- sidebar -->
         <div class="col-md-12">
-            <div class="row gap-3">
-                <div class="col-md-3 shadow p-2">
-                    <div class="sidebar">
-                        <!-- add -->
-                        <form action="{{ route('add_category') }}" method="post" class="mb-3">
-                            <h4>Tambah Category</h1>
-                            @csrf
-                            <div class="mb-3">
-                                <label class="form-label">Category Name</label>
-                                <input type="text" class="form-control" name="nama">
-                            </div>
-                            <button class="btn btn-success">
-                                SUBMIT
-                            </button>
-                        </form>
+            <div class="row gap-3 justify-content-center">
 
-                        <!-- remove -->
-                        <form action="{{ route('update_category') }}" method="post">
-                            <h4>Ubah Category</h1>
-                            @csrf
-                            <div class="mb-3">
-                                <label class="form-label">Category ID</label>
-                                <select name="id" class="form-select">
-                                    <option value="">---</option>
-                                    @foreach( $data as $row )
-                                        <option value="{{ $row->id }}">{{$row->id . " - " . $row->nama}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Nama</label>
-                                <input type="text" class="form-control" name="nama" placeholder="nama">
-                            </div>
-                            <button class="btn btn-warning">
-                                SUBMIT
-                            </button>
-                        </form>
-                    </div>
-                </div>
-    
-                <div class="col-md shadow p-2">
-                    <div class="content">
+                <div class="col-md-7 shadow p-2">
+                    <div class="content">                        
+                        <button type="button" class="btn btn-primary my-2 btn-sm" data-bs-toggle="modal" data-bs-target="#TambahCategory">
+                            <i class="bi bi-plus"></i>
+                            <span>Tambah Kategori</span>
+                        </button>
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <tr>
@@ -63,8 +29,15 @@
                                     <tr>
                                         <td>{{ $row->id }}</td>
                                         <td>{{ $row->nama }}</td>
-                                        <td style="width: 80px;">
-                                            <a href="{{ route('remove_category', $row->id) }}" class="btn btn-sm btn-danger">Hapus</button>
+                                        <td>
+                                            <div class="text-end">
+                                                <a href="{{ route('remove_category', $row->id) }}" class="btn btn-sm btn-danger">
+                                                    <i class="bi bi-trash"></i>
+                                                </a>
+                                                <a href="{{ route("update_category_view", $row->id) }}" class="btn btn-sm btn-success">
+                                                    <i class="bi bi-pencil"></i>
+                                                </a>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -77,4 +50,28 @@
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="TambahCategory" tabindex="-1" aria-labelledby="TambahCategoryLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="TambahCategoryLabel">Tambah Kategori</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- add -->
+                <form action="{{ route('add_category') }}" method="post" class="mb-3">
+                    @csrf
+                    <div class="mb-3">
+                        <label class="form-label">Category Name</label>
+                        <input type="text" class="form-control" name="nama">
+                    </div>
+                    <button class="btn btn-success">
+                        SUBMIT
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 @endSection

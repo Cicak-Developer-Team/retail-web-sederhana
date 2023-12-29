@@ -9,40 +9,49 @@ use Illuminate\Http\Request;
 
 class Category extends Controller
 {
-    function index() {
+    function index()
+    {
         $data = ModelsCategory::all();
-        // dd($data->toArray());
         return view("dashboard.category.index", ["data" => $data]);
     }
 
-    function add(Request $request) {
+    function updateView($id)
+    {
+        $data = ModelsCategory::find($id);
+        return view("dashboard.category.update", compact("data"));
+    }
+
+    function add(Request $request)
+    {
         try {
             ModelsCategory::create($request->except("_token"));
             HistoryService::add("Admin menambah data category");
             return back();
-        }catch(Exception $e) {
+        } catch (Exception $e) {
             dump("Error : " . $e->getMessage());
         }
     }
 
-    function remove($id){
+    function remove($id)
+    {
         try {
             ModelsCategory::destroy($id);
             HistoryService::add("Admin menghapus data category");
             return back();
-        }catch(Exception $e) {
+        } catch (Exception $e) {
             dump("Error : " . $e->getMessage());
         }
     }
 
-    function update(Request $request) {
+    function update(Request $request)
+    {
         try {
             $category = ModelsCategory::find($request->id);
             $category->nama = $request->nama;
             $category->save();
             HistoryService::add("Admin mengubah data category");
             return back();
-        }catch(Exception $e) {
+        } catch (Exception $e) {
             dump("Error : " . $e->getMessage());
         }
     }
